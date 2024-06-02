@@ -1,14 +1,20 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import type { Task } from "@prisma/client";
-import * as taskRepo from "./taskRepo";
+import { type TaskRouter } from "./taskRepo";
+import { inferProcedureOutput } from "@trpc/server";
+
+const taskRepo = createTRPCProxyClient<TaskRouter>({
+  links: [httpBatchLink({ url: "/api/trpc" })],
+});
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
   useEffect(() => {
-    taskRepo.findMany({ orderBy: { createdAt: "asc" } }).then(setTasks);
+    taskRepo.findMany.query().then(setTasks);
   }, []);
 
   async function addTask(e: FormEvent) {
