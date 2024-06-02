@@ -1,38 +1,25 @@
 "use client";
-import { FormEvent, useState } from "react";
-
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-  createdAt?: Date;
-}
+import { FormEvent, useEffect, useState } from "react";
+import type { Task } from "@prisma/client";
+import * as taskRepo from "./taskRepo";
 
 export default function App() {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", title: "Setup", completed: true },
-    { id: "2", title: "Entities", completed: false },
-    { id: "3", title: "Paging, Sorting and Filtering", completed: false },
-    { id: "4", title: "CRUD Operations", completed: false },
-    { id: "5", title: "Live Query", completed: false },
-    { id: "6", title: "Validation", completed: false },
-    { id: "7", title: "Updating multiple tasks", completed: false },
-    { id: "8", title: "Database", completed: false },
-    { id: "9", title: "Authentication and Authorization", completed: false },
-    { id: "10", title: "Deployment", completed: false },
-    { id: "11", title: "Example apps", completed: false },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+
+  useEffect(() => {
+    taskRepo.findMany({ orderBy: { createdAt: "asc" } }).then(setTasks);
+  }, []);
 
   async function addTask(e: FormEvent) {
     e.preventDefault();
     try {
-      const newTask = {
-        title: newTaskTitle,
-        completed: false,
-        id: (tasks.length + 1).toString(),
-        createdAt: new Date(),
-      };
+      const newTask = await taskRepo.create({
+        data: {
+          title: newTaskTitle,
+          completed: false,
+        },
+      });
       setTasks([...tasks, newTask]);
       setNewTaskTitle("");
     } catch (error: any) {
@@ -41,12 +28,16 @@ export default function App() {
   }
 
   async function setCompleted(task: Task, completed: boolean) {
-    const updatedTask = { ...task, completed };
+    const updatedTask = await taskRepo.update({
+      data: { completed },
+      where: { id: task.id },
+    });
     setTasks((tasks) => tasks.map((t) => (t === task ? updatedTask : t)));
   }
 
   async function deleteTask(task: Task) {
     try {
+      await taskRepo.deleteMany({ where: { id: task.id } });
       setTasks(tasks.filter((t) => t !== task));
     } catch (error: any) {
       alert(error.message);
@@ -54,6 +45,7 @@ export default function App() {
   }
 
   async function setAllCompleted(completed: boolean) {
+    await taskRepo.updateMany({ data: { completed } });
     setTasks(tasks.map((task) => ({ ...task, completed })));
   }
 
