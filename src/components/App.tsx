@@ -1,12 +1,13 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import superjson from "superjson";
 import type { Task } from "@prisma/client";
 import { type TaskRouter } from "./taskRepo";
-import { inferProcedureOutput } from "@trpc/server";
 
 const taskRepo = createTRPCProxyClient<TaskRouter>({
   links: [httpBatchLink({ url: "/api/trpc" })],
+  transformer: superjson,
 });
 
 export default function App() {
