@@ -1,3 +1,28 @@
+# Spec:
+
+## Task
+
+- id
+- title
+- completed
+- owner - updated only on creation
+- createdAt - updated only on creation
+
+## Feature - show uncompleted
+
+## Validations
+
+- custom validation, title must have 3 chars
+
+## Roles:
+
+- user can only see they're own tasks
+- admin users can see all tasks
+
+## Remove
+
+- set all completed
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
