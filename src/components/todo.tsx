@@ -1,8 +1,14 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
 import type { Task } from "@prisma/client";
+import { validateTask } from "../model/validateTask";
 
-import { deleteTask, findTasks, insertTask, updateTask } from "./task-service";
+import {
+  deleteTask,
+  findTasks,
+  insertTask,
+  updateTask,
+} from "../model/task-service";
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -10,13 +16,24 @@ export default function App() {
   const [showCompleted, setShowCompleted] = useState(false);
 
   useEffect(() => {
-    findTasks(showCompleted).then(setTasks);
+    findTasks({
+      orderBy: {
+        createdAt: "asc",
+      },
+      where: showCompleted
+        ? {}
+        : {
+            completed: false,
+          },
+    }).then(setTasks);
   }, [showCompleted]);
 
   async function addTask(e: FormEvent) {
     e.preventDefault();
     try {
-      const newTask = await insertTask({ title: newTaskTitle });
+      const newTask = await insertTask(
+        validateTask({ title: newTaskTitle }, true)
+      );
       setTasks([...tasks, newTask]);
       setNewTaskTitle("");
     } catch (error: any) {

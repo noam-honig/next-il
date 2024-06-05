@@ -3,7 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { UserInfo, remult } from "remult";
-import App from "./App";
+import App from "./todo";
 
 export default function Auth() {
   const session = useSession();

@@ -18,10 +18,13 @@
 
 - user can only see they're own tasks
 - admin users can see all tasks
+- Only admin can delete
 
 ## Remove
 
 - set all completed
+
+## Show - this can be called from api and not from your code
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
