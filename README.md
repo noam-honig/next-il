@@ -72,3 +72,10 @@ Typed api calls | X | V | V | V
 Requires DTO Types | X | V | X | X
 Validates api argument types | X | V | X | V
 Propagate exceptions to front end | X | V | V | V
+Handles dates gracefully | X | V | V | V
+Inferred routes
+
+const taskRepo = createTRPCProxyClient<TaskRouter>({
+links: [httpBatchLink({ url: "/api/trpc" })],
+transformer: superjson,
+});

@@ -1,10 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { z } from "zod";
-import { deleteTask, findTasks, insertTask, updateTask } from "./task-service";
-
-const db = new PrismaClient();
+import {
+  deleteTask,
+  findTasks,
+  insertTask,
+  updateTask,
+} from "../../../../model/task-service";
 
 const t = initTRPC.create({ transformer: superjson });
 
