@@ -69,3 +69,6 @@ topic | api routes | trpc | server action | remult
 Normal Rest | V | X | X |V
 Share Task Type | V | V | V | V
 Typed api calls | X | V | V | V
+Requires DTO Types | X | V | X | X
+Validates api argument types | X | V | X | V
+Propagate exceptions to front end | X | V | V | V
