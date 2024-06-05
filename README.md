@@ -1,3 +1,31 @@
+# Spec:
+
+## Task
+
+- id
+- title
+- completed
+- owner - updated only on creation
+- createdAt - updated only on creation
+
+## Feature - show uncompleted
+
+## Validations
+
+- custom validation, title must have 3 chars
+
+## Roles:
+
+- user can only see they're own tasks
+- admin users can see all tasks
+- Only admin can delete
+
+## Remove
+
+- set all completed
+
+## Show - this can be called from api and not from your code
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +62,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
++-----+
+topic | api routes | trpc | server action | remult
++------+
+Normal Rest | V | X | X |V
+Share Task Type | V | V | V | V
+Typed api calls | X | V | V | V
