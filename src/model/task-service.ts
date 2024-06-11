@@ -1,6 +1,7 @@
-import { PrismaClient, type Task, Prisma } from "@prisma/client";
-import { getNextAuthUser } from "../auth";
+import { getAuthenticatedUser } from "../auth";
+import { PrismaClient, type Task, type Prisma } from "@prisma/client";
 import { validateTask } from "./validateTask";
+
 const db = new PrismaClient();
 
 export async function findTasks(args: Prisma.TaskFindManyArgs) {
@@ -48,10 +49,4 @@ export async function deleteTask(id: Task["id"]) {
   const user = await getAuthenticatedUser();
   if (!user.roles?.includes("admin")) throw new Error("Not Authorized");
   return db.task.delete({ where: { id } });
-}
-
-async function getAuthenticatedUser() {
-  const user = await getNextAuthUser();
-  if (!user) throw new Error("Not Authenticated");
-  return user;
 }

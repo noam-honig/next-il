@@ -32,3 +32,8 @@ export async function getNextAuthUser() {
   const session = await getServerSession();
   return findUser(session?.user?.name);
 }
+export async function getAuthenticatedUser() {
+  const user = await getNextAuthUser();
+  if (!user) throw new Error("Not Authenticated");
+  return user;
+}
