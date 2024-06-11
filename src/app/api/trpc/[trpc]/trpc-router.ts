@@ -7,13 +7,9 @@ import {
   insertTask,
   updateTask,
 } from "../../../../model/task-service";
+import { title } from "process";
 
 const t = initTRPC.create({ transformer: superjson });
-
-const TaskInputDTO = z.object({
-  title: z.string(),
-  completed: z.boolean(),
-});
 
 export const taskRouter = t.router({
   findTasks: t.procedure
@@ -35,11 +31,26 @@ export const taskRouter = t.router({
               },
         })
     ),
-  insertTask: t.procedure.input(TaskInputDTO).mutation(async ({ input }) => {
-    return await insertTask(input);
-  }),
+  insertTask: t.procedure
+    .input(
+      z.object({
+        title: z.string(),
+        completed: z.boolean().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await insertTask(input);
+    }),
   updateTask: t.procedure
-    .input(z.object({ id: z.string(), data: TaskInputDTO }))
+    .input(
+      z.object({
+        id: z.string(),
+        data: z.object({
+          title: z.string().optional(),
+          completed: z.boolean().optional(),
+        }),
+      })
+    )
     .mutation(async ({ input }) => {
       return await updateTask(input.id, input.data);
     }),
