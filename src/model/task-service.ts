@@ -1,4 +1,3 @@
-"use server";
 import { PrismaClient, type Task, Prisma } from "@prisma/client";
 import { getNextAuthUser } from "../auth";
 import { validateTask } from "./validateTask";
