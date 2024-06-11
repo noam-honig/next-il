@@ -27,3 +27,11 @@
    3. Lot's of boilerplate code around json, and error handling
    4. Emphasize that we are using the same `validateTask` method
    5. Also explain that non json types (such as date) require transformation
+
+# TRPC
+
+1. End to End type safety
+
+# Server Action
+
+1. Explain that it's vulnerable to network tempering
