@@ -75,7 +75,7 @@ Propagate exceptions to front end | X | V | V | V
 Handles dates gracefully | X | V | V | V
 Inferred routes
 
-const taskRepo = createTRPCProxyClient<TaskRouter>({
+const taskTRPC = createTRPCProxyClient<TaskRouter>({
 links: [httpBatchLink({ url: "/api/trpc" })],
 transformer: superjson,
 });
