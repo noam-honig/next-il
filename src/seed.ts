@@ -14,7 +14,12 @@ const tasks = [
 ];
 
 db.task.deleteMany().then(async () => {
+  let i = 0;
+
   for (const task of tasks) {
-    await db.task.create({ data: task });
+    let createdAt = new Date();
+    i = i + Math.random() * 5;
+    createdAt.setMinutes(createdAt.getMinutes() - i);
+    await db.task.create({ data: { ...task, createdAt } });
   }
 });
