@@ -1,18 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient({ log: ["query"] });
+const db = new PrismaClient();
 
 const tasks = [
-  { title: "Setup", completed: true, owner: "1" },
-  { title: "Entities", completed: false, owner: "1" },
-  { title: "Paging, Sorting and Filtering", completed: false, owner: "2" },
-  { title: "CRUD Operations", completed: false, owner: "2" },
-  { title: "Live Query", completed: false, owner: "2" },
-  { title: "Validation", completed: false, owner: "2" },
-  { title: "Updating multiple tasks", completed: false, owner: "1" },
-  { title: "Database", completed: false, owner: "1" },
-  { title: "Authentication and Authorization", completed: false, owner: "1" },
-  { title: "Deployment", completed: false, owner: "2" },
-  { title: "Example apps", completed: false, owner: "2" },
+  { title: "Do Laundry", completed: true, owner: "steve" },
+  { title: "Buy Groceries", completed: false, owner: "steve" },
+  { title: "Clean Kitchen", completed: false, owner: "jane" },
+  { title: "Organize Photos", completed: false, owner: "jane" },
+  { title: "Pay Bills", completed: false, owner: "jane" },
+  { title: "Exercise", completed: false, owner: "jane" },
+  { title: "Cook Dinner", completed: false, owner: "steve" },
+  { title: "Water Plants", completed: false, owner: "steve" },
+  { title: "Vacuum House", completed: false, owner: "steve" },
 ];
 
 db.task.deleteMany().then(async () => {

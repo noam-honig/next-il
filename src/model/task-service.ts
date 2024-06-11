@@ -2,7 +2,7 @@
 import { PrismaClient, type Task, Prisma } from "@prisma/client";
 import { getNextAuthUser } from "../auth";
 import { validateTask } from "./validateTask";
-const db = new PrismaClient({ log: ["query"] });
+const db = new PrismaClient();
 
 export async function findTasks(args: Prisma.TaskFindManyArgs) {
   const user = await getAuthenticatedUser();
@@ -19,7 +19,7 @@ export async function findTasks(args: Prisma.TaskFindManyArgs) {
 
 export async function insertTask(data: Partial<Task>) {
   const user = await getAuthenticatedUser();
-  validateTask(data, true);
+  validateTask(data);
 
   return db.task.create({
     data: {
@@ -32,7 +32,7 @@ export async function insertTask(data: Partial<Task>) {
 
 export async function updateTask(id: Task["id"], data: Partial<Task>) {
   const user = await getAuthenticatedUser();
-  validateTask(data, false);
+  validateTask(data, true);
   return db.task.update({
     where: {
       id,

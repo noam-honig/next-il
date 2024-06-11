@@ -2,8 +2,8 @@ import NextAuth, { getServerSession } from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 
 const validUsers = [
-  { id: "1", name: "Jane", roles: ["admin"] },
-  { id: "2", name: "Steve" },
+  { id: "jane", name: "Jane", roles: ["admin"] },
+  { id: "steve", name: "Steve" },
 ];
 function findUser(name?: string | null) {
   return validUsers.find((user) => user.name === name);

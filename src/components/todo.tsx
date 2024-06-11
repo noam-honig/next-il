@@ -20,7 +20,7 @@ export default function App() {
     try {
       const newTask = await fetch("/api/tasks/", {
         method: "POST",
-        body: JSON.stringify(validateTask({ title: newTaskTitle }, true)),
+        body: JSON.stringify(validateTask({ title: newTaskTitle })),
       }).then((x) => {
         if (x.ok) return x.json();
         else throw new Error(x.statusText);
@@ -76,7 +76,19 @@ export default function App() {
             checked={task.completed}
             onChange={(e) => setCompleted(task, e.target.checked)}
           />
-          <span>{task.title}</span>
+          <span>
+            {task.title}
+            <br />
+            <small>
+              (
+              {`owner: ${task.owner}, ${(
+                (new Date().valueOf() - new Date(task.createdAt).valueOf()) /
+                60000
+              ).toFixed()} minutes ago`}
+              )
+            </small>
+          </span>
+
           <button onClick={() => handleDeleteTask(task)}>x</button>
         </div>
       ))}
