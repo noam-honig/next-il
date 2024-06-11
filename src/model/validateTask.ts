@@ -1,6 +1,9 @@
 import { type Task } from "@prisma/client";
 
-export function validateTask(data: Partial<Task>, isUpdate = false) {
+export function validateTask<dataType extends Partial<Task>>(
+  data: dataType,
+  isUpdate = false
+) {
   if (!isUpdate || data.title !== undefined) {
     //An update could be partial so we don't need to check the title in that case
     if ((data.title ?? "").length < 3)
