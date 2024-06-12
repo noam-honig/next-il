@@ -1,15 +1,14 @@
-import { initTRPC } from "@trpc/server";
-import superjson from "superjson";
-import { z } from "zod";
+import { initTRPC } from "@trpc/server"
+import superjson from "superjson"
+import { z } from "zod"
 import {
   deleteTask,
   findTasks,
   insertTask,
   updateTask,
-} from "../../../../model/task-service";
-import { title } from "process";
+} from "../../../../model/task-service"
 
-const t = initTRPC.create({ transformer: superjson });
+const t = initTRPC.create({ transformer: superjson })
 
 export const taskRouter = t.router({
   findTasks: t.procedure
@@ -39,7 +38,7 @@ export const taskRouter = t.router({
       })
     )
     .mutation(async ({ input }) => {
-      return await insertTask(input);
+      return await insertTask(input)
     }),
   updateTask: t.procedure
     .input(
@@ -52,11 +51,11 @@ export const taskRouter = t.router({
       })
     )
     .mutation(async ({ input }) => {
-      return await updateTask(input.id, input.data);
+      return await updateTask(input.id, input.data)
     }),
   deleteTask: t.procedure.input(z.string()).mutation(async ({ input }) => {
-    return await deleteTask(input);
+    return await deleteTask(input)
   }),
-});
+})
 
-export type TaskRouter = typeof taskRouter;
+export type TaskRouter = typeof taskRouter
