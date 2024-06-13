@@ -1,3 +1,3 @@
-import { api } from "./api";
+import { api } from "./api"
 
-export const { GET, PUT, POST, DELETE } = api;
+export const { GET, PUT, POST, DELETE } = api

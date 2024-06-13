@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient();
+import { PrismaClient } from "@prisma/client"
+const db = new PrismaClient()
 
 const tasks = [
   { title: "Do Laundry", completed: true, owner: "steve" },
@@ -11,15 +11,15 @@ const tasks = [
   { title: "Cook Dinner", completed: false, owner: "steve" },
   { title: "Water Plants", completed: false, owner: "steve" },
   { title: "Vacuum House", completed: false, owner: "steve" },
-];
+]
 
 db.task.deleteMany().then(async () => {
-  let i = 0;
+  let i = 0
 
   for (const task of tasks) {
-    let createdAt = new Date();
-    i = i + Math.random() * 5;
-    createdAt.setMinutes(createdAt.getMinutes() - i);
-    await db.task.create({ data: { ...task, createdAt } });
+    let createdAt = new Date()
+    i = i + Math.random() * 5
+    createdAt.setMinutes(createdAt.getMinutes() - i)
+    await db.task.create({ data: { ...task, createdAt } })
   }
-});
+})

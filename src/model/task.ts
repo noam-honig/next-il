@@ -1,29 +1,29 @@
-import { Entity, Fields, remult } from "remult";
+import { Entity, Fields, remult } from "remult"
 
 @Entity<Task>("Task", {
   allowApiCrud: remult.authenticated,
   allowApiDelete: "admin",
   apiPrefilter: () => {
-    if (remult.isAllowed("admin")) return {};
-    return { owner: remult.user!.id! };
+    if (remult.isAllowed("admin")) return {}
+    return { owner: remult.user!.id! }
   },
 })
 export class Task {
   @Fields.cuid()
-  id = "";
+  id = ""
 
   @Fields.string<Task>({
     validate: (task) =>
       task.title.length > 2 || "Title must be at least 3 characters long",
   })
-  title = "";
+  title = ""
 
   @Fields.boolean()
-  completed = false;
+  completed = false
 
   @Fields.createdAt()
-  createdAt = new Date();
+  createdAt = new Date()
 
   @Fields.string({ allowApiUpdate: false })
-  owner = remult.user?.id!;
+  owner = remult.user?.id!
 }
