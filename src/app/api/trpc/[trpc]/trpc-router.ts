@@ -11,7 +11,7 @@ import {
 const t = initTRPC.create({ transformer: superjson })
 
 export const taskRouter = t.router({
-  findTasks: t.procedure
+  find: t.procedure
     .input(
       z.object({
         showCompleted: z.boolean(),
@@ -30,7 +30,7 @@ export const taskRouter = t.router({
               },
         })
     ),
-  insertTask: t.procedure
+  insert: t.procedure
     .input(
       z.object({
         title: z.string(),
@@ -40,7 +40,7 @@ export const taskRouter = t.router({
     .mutation(async ({ input }) => {
       return await insertTask(input)
     }),
-  updateTask: t.procedure
+  update: t.procedure
     .input(
       z.object({
         id: z.string(),
@@ -53,7 +53,7 @@ export const taskRouter = t.router({
     .mutation(async ({ input }) => {
       return await updateTask(input.id, input.data)
     }),
-  deleteTask: t.procedure.input(z.string()).mutation(async ({ input }) => {
+  delete: t.procedure.input(z.string()).mutation(async ({ input }) => {
     return await deleteTask(input)
   }),
 })
