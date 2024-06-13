@@ -1,35 +1,35 @@
-"use client";
-import { FormEvent, useEffect, useState } from "react";
+"use client"
+import { FormEvent, useEffect, useState } from "react"
 
-import type { Task } from "@prisma/client";
-import { validateTask } from "../model/validateTask";
+import type { Task } from "@prisma/client"
+import { validateTask } from "../model/validateTask"
 
 export default function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [showCompleted, setShowCompleted] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [newTaskTitle, setNewTaskTitle] = useState("")
+  const [showCompleted, setShowCompleted] = useState(false)
 
   useEffect(() => {
     fetch("/api/tasks/?showCompleted=" + showCompleted)
       .then((x) => x.json())
-      .then(setTasks);
-  }, [showCompleted]);
+      .then(setTasks)
+  }, [showCompleted])
 
   async function addTask(e: FormEvent) {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const newTask = await fetch("/api/tasks/", {
         method: "POST",
         body: JSON.stringify(validateTask({ title: newTaskTitle })),
       }).then((x) => {
-        if (x.ok) return x.json();
-        else throw new Error(x.statusText);
-      });
+        if (x.ok) return x.json()
+        else throw new Error(x.statusText)
+      })
 
-      setTasks([...tasks, newTask]);
-      setNewTaskTitle("");
+      setTasks([...tasks, newTask])
+      setNewTaskTitle("")
     } catch (error: any) {
-      alert(error.message);
+      alert(error.message)
     }
   }
 
@@ -38,11 +38,11 @@ export default function App() {
       method: "PUT",
       body: JSON.stringify({ completed }),
     }).then((x) => {
-      if (x.ok) return x.json();
-      else throw new Error(x.statusText);
-    });
+      if (x.ok) return x.json()
+      else throw new Error(x.statusText)
+    })
 
-    setTasks((tasks) => tasks.map((t) => (t === task ? updatedTask : t)));
+    setTasks((tasks) => tasks.map((t) => (t === task ? updatedTask : t)))
   }
 
   async function handleDeleteTask(task: Task) {
@@ -51,12 +51,12 @@ export default function App() {
         method: "DELETE",
       }).then(async (x) => {
         if (!x.ok) {
-          throw new Error(x.statusText);
+          throw new Error(x.statusText)
         }
-      });
-      setTasks(tasks.filter((t) => t !== task));
+      })
+      setTasks(tasks.filter((t) => t !== task))
     } catch (error: any) {
-      alert(error.message);
+      alert(error.message)
     }
   }
   return (
@@ -98,5 +98,5 @@ export default function App() {
         </button>
       </footer>
     </main>
-  );
+  )
 }
