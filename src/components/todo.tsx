@@ -10,7 +10,7 @@ export default function App() {
   const [showCompleted, setShowCompleted] = useState(false)
 
   useEffect(() => {
-    fetch("/api/tasks/?showCompleted=" + showCompleted)
+    fetch("/api/tasks?showCompleted=" + showCompleted)
       .then((x) => x.json())
       .then(setTasks)
   }, [showCompleted])
@@ -18,7 +18,7 @@ export default function App() {
   async function addTask(e: FormEvent) {
     e.preventDefault()
     try {
-      const newTask = await fetch("/api/tasks/", {
+      const newTask = await fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify(validateTask({ title: newTaskTitle })),
       }).then((x) => {

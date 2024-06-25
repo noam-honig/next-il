@@ -1,8 +1,8 @@
 # Task Management Application Spec
 
-1 Each task will have: Id, title, completed, owner, createdAt
-2 Users will see only uncompleted tasks, and can choose to see all
-3 A valid task must have at least 3 characters
-4 Users can only see the tasks they own
-5 `admin` users can see any task
-6 Only `admin` users can delete tasks
+1. Task properties: id, title, completed, owner, createdAt
+2. Users see either only uncompleted tasks (default), or all tasks
+3. A valid task title must be at least 3 characters long
+4. Users can only see and modify the tasks they “own” (created)
+5. `admin` users can see and modify any task
+6. Only `admin` users can delete tasks
