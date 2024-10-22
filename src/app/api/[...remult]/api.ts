@@ -10,4 +10,3 @@ export const api = remultNextApp({
   admin: true,
   getUser: getNextAuthUser,
 })
-SqlDatabase.LogToConsole = true
